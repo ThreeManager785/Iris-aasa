@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>存储测试</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f4f4f9; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        button { background: #007AFF; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+        button:active { background: #0051a8; }
+        #count-display { font-size: 2rem; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h3>本地计数器测试</h3>
+    <div id="count-display">0</div>
+    <button onclick="increment()">点击 +1</button>
+    <button onclick="clearStorage()" style="background:#ff3b30; margin-left:10px;">重置</button>
+    <p style="color: #666; font-size: 0.8rem; margin-top: 20px;">
+        刷新页面看数字是否保持不变。<br>
+        在无痕模式关闭并重启后，数字应归零。
+    </p>
+</div>
+
+<script>
+    // 初始化显示
+    const display = document.getElementById('count-display');
+    let currentCount = localStorage.getItem('test_count') || 0;
+    display.innerText = currentCount;
+
+    function increment() {
+        currentCount++;
+        // 存入 LocalStorage
+        localStorage.setItem('test_count', currentCount);
+        display.innerText = currentCount;
+    }
+
+    function clearStorage() {
+        localStorage.removeItem('test_count');
+        currentCount = 0;
+        display.innerText = currentCount;
+    }
+</script>
+
+</body>
+</html>
